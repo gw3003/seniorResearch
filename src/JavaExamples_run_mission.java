@@ -56,10 +56,12 @@ public class JavaExamples_run_mission
             System.exit(0);
         }
 
+        //Handles creating world
         MissionSpec my_mission = new MissionSpec();
         my_mission.timeLimitInSeconds(10);
         my_mission.requestVideo( 520, 520 );
         my_mission.rewardForReachingPosition(19.5f,0.0f,19.5f,100.0f,1.1f);
+        my_mission.drawBlock(arg0, arg1, arg2, arg3);
 
         MissionRecordSpec my_mission_record = new MissionRecordSpec("./saved_data.tgz");
         my_mission_record.recordCommands();
