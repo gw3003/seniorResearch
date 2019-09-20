@@ -75,23 +75,24 @@ public class JavaExamples_run_mission
         +  "\n</ServerHandlers>"
         +"\n</ServerSection>"
         +"\n<AgentSection mode=\"Survival\">"
-        +"\n<Name>MalmoTutorialBot</Name>"
-        +"\n<AgentStart/>"
+        +  "\n<Name>MalmoTutorialBot</Name>"
+        +  "\n<AgentStart>"
+       +      "<Placement x=\"0\" y=\"0\" z=\"0\"/>"
+        +  "\n</AgentStart>"
         +  "\n<AgentHandlers>"
-        +    "\n<ObservationFromFullStats/>"
-        +    "\n<ContinuousMovementCommands turnSpeedDegs=\"30\"/>"
-        +    "\n</AgentHandlers>"
+        +     "\n<ObservationFromFullStats/>"
+        +     "\n<ContinuousMovementCommands turnSpeedDegs=\"30\"/>"
+        +     "\n</AgentHandlers>"
         +  "\n</AgentSection>"
         +"\n</Mission>";
 
 
         //Handles creating world
         MissionSpec my_mission = new MissionSpec(xml, true);
-        //my_mission.timeLimitInSeconds(10); use xml file
         my_mission.requestVideo( 520, 520 );
         //my_mission.rewardForReachingPosition(19.5f,0.0f,19.5f,100.0f,1.1f);
         
-        System.out.println(my_mission.getAsXML(true));
+        //System.out.println(my_mission.getAsXML(true));
         
 
         MissionRecordSpec my_mission_record = new MissionRecordSpec("./saved_data.tgz");
