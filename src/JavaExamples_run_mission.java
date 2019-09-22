@@ -33,7 +33,7 @@ public class JavaExamples_run_mission
         System.loadLibrary("MalmoJava"); // attempts to load MalmoJava.dll (on Windows) or libMalmoJava.so (on Linux)
     }
 
-    public static void main(String argv[])
+    public static void main(String argv[]) throws Exception
     {
         AgentHost agent_host = new AgentHost();
         try
@@ -55,20 +55,71 @@ public class JavaExamples_run_mission
             System.out.println( agent_host.getUsage() );
             System.exit(0);
         }
+        //Mission XML String
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>"
+        +"\n <Mission xmlns=\"http://ProjectMalmo.microsoft.com\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
+        +"\n<About>"
+        +  "\n <Summary>Hello world!</Summary>"
+        +"\n</About>"
+        +"\n<ServerSection>"
+        +  "\n<ServerInitialConditions>"
+        +      "\n<Time>"
+        +        "\n<StartTime>8000</StartTime>"
+        +        "\n<AllowPassageOfTime>false</AllowPassageOfTime>"
+        +      "\n</Time>"
+        +  "\n</ServerInitialConditions>"
+        +  "\n<ServerHandlers>"
+        +    "\n<FlatWorldGenerator generatorString=\"3;7,220*1,5*3,2;3;,biome_1\"/>"
+        +    "\n<DrawingDecorator>"
+        +	    "\n<DrawLine type=\"stone\" x1=\"-6\" y1=\"227\" z1=\"-4\" x2=\"6\" y2=\"227\" z2=\"-4\"/>"
+        +	    "\n<DrawLine type=\"stone\" x1=\"-6\" y1=\"227\" z1=\"-4\" x2=\"-6\" y2=\"227\" z2=\"8\"/>"
+        +	    "\n<DrawLine type=\"stone\" x1=\"6\" y1=\"227\" z1=\"-4\" x2=\"6\" y2=\"227\" z2=\"8\"/>"
+        +	    "\n<DrawLine type=\"stone\" x1=\"-6\" y1=\"227\" z1=\"8\" x2=\"6\" y2=\"227\" z2=\"8\"/>"
+        +       "\n<DrawCuboid type = \"farmland\" x1=\"-6\" y1=\"226\" z1=\"-4\" x2=\"6\" y2=\"226\" z2=\"8\" />"
+        +       "\n<DrawBlock type = \"water\" x=\"0\" y=\"226\" z=\"2\"/>"
+        +    "\n</DrawingDecorator>"
+        +    "\n<ServerQuitFromTimeUp timeLimitMs=\"10000\"/>"
+        +    "\n<ServerQuitWhenAnyAgentFinishes/>"
+        +  "\n</ServerHandlers>"
+        +"\n</ServerSection>"
+        +"\n<AgentSection mode=\"Survival\">"
+        + ""
+        +  "\n<Name>MalmoTutorialBot</Name>"
+        +  "\n<AgentStart>"
+        +      "<Placement x=\"0\" y=\"227\" z=\"0\"/>"
+        +      "<Inventory>"
+        +          "<InventoryItem slot=\"0\" type=\"diamond_hoe\"/>"
+        +          "<InventoryItem slot=\"1\" type=\"wheat_seeds\"/>" 
+      //  +          "<InventoryItem slot=\"2\" type=\"bone_meal\"/>"
+        +      "</Inventory>"
+        +  "\n</AgentStart>"
+        +  "\n<AgentHandlers>"
+        +     "\n<ObservationFromFullStats/>"
+        +     "\n<ContinuousMovementCommands turnSpeedDegs=\"30\"/>"
+        +     "\n</AgentHandlers>"
+        +  "\n</AgentSection>"
+        +"\n</Mission>";
 
-        MissionSpec my_mission = new MissionSpec();
-        my_mission.timeLimitInSeconds(10);
-        my_mission.requestVideo( 520, 520 );
-        my_mission.rewardForReachingPosition(19.5f,0.0f,19.5f,100.0f,1.1f);
+
+        //Handles creating world
+        MissionSpec my_mission = new MissionSpec(xml, true);
+        my_mission.requestVideo( 800, 800);
+        //my_mission.rewardForReachingPosition(19.5f,0.0f,19.5f,100.0f,1.1f);
+        
+        //System.out.println(my_mission.getAsXML(true));
+        
 
         MissionRecordSpec my_mission_record = new MissionRecordSpec("./saved_data.tgz");
         my_mission_record.recordCommands();
         my_mission_record.recordMP4(20, 400000);
         my_mission_record.recordRewards();
         my_mission_record.recordObservations();
+        
+        ClientPool my_client_pool = new ClientPool();
+        my_client_pool.add(new ClientInfo("127.0.0.1", 10000));
 
         try {
-            agent_host.startMission( my_mission, my_mission_record );
+            agent_host.startMission( my_mission, my_client_pool ,my_mission_record, 0, "0");
         }
         catch (MissionException e) {
             System.err.println( "Error starting mission: " + e.getMessage() );
@@ -99,8 +150,11 @@ public class JavaExamples_run_mission
         } while( !world_state.getIsMissionRunning() );
         System.out.println( "" );
 
+        //System.out.println(my_mission.getAsXML(true));
+        
         // main loop:
         do {
+        	
             agent_host.sendCommand( "move 1" );
             agent_host.sendCommand( "turn " + Math.random() );
             try {
