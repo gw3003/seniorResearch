@@ -2,12 +2,12 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/Gabe/MalmoPlatform/Java_Examples"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/gweri/School/SeniorResearch/MalmoPlatform/Java_Examples"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Malmo"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/Gabe/MalmoPlatform/Java_Examples/MalmoJavaJar.jar">
+	<classpathentry kind="lib" path="C:/Users/gweri/School/SeniorResearch/MalmoPlatform/Java_Examples/MalmoJavaJar.jar">
 		<attributes>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/Gabe/MalmoPlatform/Java_Examples"/>
 		</attributes>

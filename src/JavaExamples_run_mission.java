@@ -64,20 +64,29 @@ public class JavaExamples_run_mission
         +"\n<ServerSection>"
         +  "\n<ServerInitialConditions>"
         +      "\n<Time>"
-        +        "\n<StartTime>12000</StartTime>"
+        +        "\n<StartTime>8000</StartTime>"
         +        "\n<AllowPassageOfTime>false</AllowPassageOfTime>"
         +      "\n</Time>"
         +  "\n</ServerInitialConditions>"
         +  "\n<ServerHandlers>"
         +    "\n<FlatWorldGenerator generatorString=\"3;7,220*1,5*3,2;3;,biome_1\"/>"
+        +    "\n<DrawingDecorator>"
+        +	    "\n<DrawLine type=\"stone\" x1=\"-6\" y1=\"227\" z1=\"-4\" x2=\"6\" y2=\"227\" z2=\"-4\"/>"
+        +	    "\n<DrawLine type=\"stone\" x1=\"-6\" y1=\"227\" z1=\"-4\" x2=\"-6\" y2=\"227\" z2=\"8\"/>"
+        +	    "\n<DrawLine type=\"stone\" x1=\"6\" y1=\"227\" z1=\"-4\" x2=\"6\" y2=\"227\" z2=\"8\"/>"
+        +	    "\n<DrawLine type=\"stone\" x1=\"-6\" y1=\"227\" z1=\"8\" x2=\"6\" y2=\"227\" z2=\"8\"/>"
+        +       "\n<DrawCuboid type = \"farmland\" x1=\"-6\" y1=\"226\" z1=\"-4\" x2=\"6\" y2=\"226\" z2=\"8\" />"
+        +       "\n<DrawBlock type = \"water\" x=\"0\" y=\"226\" z=\"2\"/>"
+        +    "\n</DrawingDecorator>"
         +    "\n<ServerQuitFromTimeUp timeLimitMs=\"10000\"/>"
         +    "\n<ServerQuitWhenAnyAgentFinishes/>"
         +  "\n</ServerHandlers>"
         +"\n</ServerSection>"
         +"\n<AgentSection mode=\"Survival\">"
+        + ""
         +  "\n<Name>MalmoTutorialBot</Name>"
         +  "\n<AgentStart>"
-       +      "<Placement x=\"0\" y=\"0\" z=\"0\"/>"
+        +      "<Placement x=\"0\" y=\"227\" z=\"0\"/>"
         +  "\n</AgentStart>"
         +  "\n<AgentHandlers>"
         +     "\n<ObservationFromFullStats/>"
@@ -89,7 +98,7 @@ public class JavaExamples_run_mission
 
         //Handles creating world
         MissionSpec my_mission = new MissionSpec(xml, true);
-        my_mission.requestVideo( 520, 520 );
+        my_mission.requestVideo( 800, 800);
         //my_mission.rewardForReachingPosition(19.5f,0.0f,19.5f,100.0f,1.1f);
         
         //System.out.println(my_mission.getAsXML(true));
